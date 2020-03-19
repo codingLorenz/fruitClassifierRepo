@@ -14,15 +14,15 @@ from starlette.routing import Route
 export_file_url = 'https://drive.google.com/uc?export=download&id=1U6vmC0eY_ejOvFvHIjXUsvI7Jsn31SRd'
 export_file_name = 'export.pkl'
 
-classes = ['cataract', 'glaucoma', 'normal', 'retina_disease']
+classes = ['apple','banana','strawberry']
 path = Path(__file__).parent
 
-templates = Jinja2Templates(directory=str('app/templates'))
+# templates = Jinja2Templates(directory=str('app/templates'))
 
 app = Starlette()
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
-app.mount('/static', StaticFiles(directory='app/static'))
-app.mount('/templates', StaticFiles(directory='app/templates'))
+# app.mount('/static', StaticFiles(directory='app/static'))
+# app.mount('/templates', StaticFiles(directory='app/templates'))
 
 async def download_file(url, dest):
     if dest.exists(): return

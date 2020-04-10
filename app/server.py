@@ -36,6 +36,7 @@ async def download_file(url, dest):
 async def setup_learner():
     await download_file(export_file_url, path / export_file_name)
     try:
+        print('doint setup_learner-------------------------')
         learn = load_learner(path, export_file_name)
         return learn
     except RuntimeError as e:
@@ -57,22 +58,24 @@ learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
 
 @app.route("/analyze", methods=["POST"])
 async def analyze(request):
+    print('doing /analyze POST-------------------------')
     data = await request.form()
     bytes = await (data["file"].read())
     return predict_image_from_bytes(bytes)
 
 
-@app.route("/classify-url", methods=["GET"])
-async def classify_url(request):
-    bytes = await get_bytes(request.query_params["url"])
-    context = {
-        "request": request, 
-        "data": predict_image_from_bytes(bytes)
-    }
-    return templates.TemplateResponse('show_predictions.html', context=context)
+# @app.route("/classify-url", methods=["GET"])
+# async def classify_url(request):
+#     bytes = await get_bytes(request.query_params["url"])
+#     context = {
+#         "request": request, 
+#         "data": predict_image_from_bytes(bytes)
+#     }
+#     return templates.TemplateResponse('show_predictions.html', context=context)
 
 
 def predict_image_from_bytes(bytes):
+    print('doint predict_image_from_bytes-------------------------')
     img = open_image(BytesIO(bytes))
     x,y,losses = learn.predict(img)   
     return JSONResponse({
@@ -83,22 +86,22 @@ def predict_image_from_bytes(bytes):
         "results": [(label, prob) for label, prob in zip(learn.data.classes, map(round, (map(float, losses*100))))]   
     })
 
-@app.route('/')
-async def homepage(request):
-    html_file = path / 'templates' / 'index.html'
-    return HTMLResponse("""<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Hello World</h1>
-</body>
-</html>""")
+# @app.route('/')
+# async def homepage(request):
+#     html_file = path / 'templates' / 'index.html'
+#     return HTMLResponse("""<!DOCTYPE html>
+# <html lang="en">
+# <head>
+#     <meta charset="UTF-8">
+#     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+#     <title>Document</title>
+# </head>
+# <body>
+#     <h1>Hello World</h1>
+# </body>
+# </html>""")
 
-#@app.route("/")
+@app.route("/")
 def form(request):
     return HTMLResponse(
         """

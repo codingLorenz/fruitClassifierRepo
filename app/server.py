@@ -11,7 +11,7 @@ from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 from starlette.routing import Route
 
-export_file_url = 'https://drive.google.com/uc?export=download&id=1U6vmC0eY_ejOvFvHIjXUsvI7Jsn31SRd'
+export_file_url = 'https://drive.google.com/uc?id=190SxQMkQO-7HX46Pw7URQKZrBrQTqL8v&export=download' #'https://drive.google.com/uc?export=download&id=1U6vmC0eY_ejOvFvHIjXUsvI7Jsn31SRd'
 export_file_name = 'export.pkl'
 
 classes = ['apple','banana','strawberry']
@@ -58,7 +58,6 @@ learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
 
 @app.route("/analyze", methods=["POST"])
 async def analyze(request):
-    print('doing /analyze POST-------------------------')
     data = await request.form()
     bytes = await (data["file"].read())
     return predict_image_from_bytes(bytes)
@@ -75,7 +74,6 @@ async def analyze(request):
 
 
 def predict_image_from_bytes(bytes):
-    print('doint predict_image_from_bytes-------------------------')
     img = open_image(BytesIO(bytes))
     x,y,losses = learn.predict(img)   
     return JSONResponse({
@@ -86,20 +84,6 @@ def predict_image_from_bytes(bytes):
         "results": [(label, prob) for label, prob in zip(learn.data.classes, map(round, (map(float, losses*100))))]   
     })
 
-# @app.route('/')
-# async def homepage(request):
-#     html_file = path / 'templates' / 'index.html'
-#     return HTMLResponse("""<!DOCTYPE html>
-# <html lang="en">
-# <head>
-#     <meta charset="UTF-8">
-#     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-#     <title>Document</title>
-# </head>
-# <body>
-#     <h1>Hello World</h1>
-# </body>
-# </html>""")
 
 @app.route("/")
 def form(request):

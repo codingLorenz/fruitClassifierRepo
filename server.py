@@ -86,7 +86,17 @@ def predict_image_from_bytes(bytes):
 @app.route('/')
 async def homepage(request):
     html_file = path / 'templates' / 'index.html'
-    return templates.TemplateResponse("index.html", {"request": request})
+    return HTMLResponse("""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello World</h1>
+</body>
+</html>""")
 
 #@app.route("/")
 def form(request):

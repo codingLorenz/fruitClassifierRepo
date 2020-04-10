@@ -121,7 +121,7 @@ def form(request):
             <title>Detect Eye Diseases</title>
         </head>
         <body>
-           <form action="/upload" method="post" enctype="multipart/form-data">
+           <form action="/analyze" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 Select image to upload:
                                 <input type="file" name="file" class="input-sm">

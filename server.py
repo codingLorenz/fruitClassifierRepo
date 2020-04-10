@@ -17,13 +17,13 @@ export_file_name = 'export.pkl'
 classes = ['apple','banana','strawberry']
 path = Path(__file__).parent
 
-# templates = Jinja2Templates(directory=str('app/templates'))
+templates = Jinja2Templates(directory=str('app/templates'))
 
 app = Starlette()
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['*'])
 # allow_headers=['X-Requested-With', 'Content-Type'])
 # app.mount('/static', StaticFiles(directory='app/static'))
-app.mount('/fruitClassifierApp', StaticFiles(directory='app/fruitClassifierApp'))
+app.mount('/templates', StaticFiles(directory='app/templates'))
 
 async def download_file(url, dest):
     if dest.exists(): return
@@ -87,7 +87,7 @@ def predict_image_from_bytes(bytes):
 
 @app.route("/")
 def form(request):
-    html_file = path / 'fruitClassifierApp' / 'index.html'
+    html_file = path / 'templates' / 'index.html'
     return templates.TemplateResponse("index.html", {"request": request})
     # return HTMLResponse(
     #     """

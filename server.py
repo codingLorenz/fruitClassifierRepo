@@ -57,8 +57,10 @@ learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
 
 @app.route("/analyze", methods=["POST"])
 async def analyze(request):
+    print(request)
     data = await request.form()
-    bytes = await (data.read())
+    print(data)
+    bytes = await (data['file'].read())
     return predict_image_from_bytes(bytes)
 
 

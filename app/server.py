@@ -21,7 +21,7 @@ templates = Jinja2Templates(directory=str('app/templates'))
 
 app = Starlette()
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['*'])
-# allow_headers=['X-Requested-With', 'Content-Type'])
+allow_headers=['X-Requested-With', 'Content-Type'])
 # app.mount('/static', StaticFiles(directory='app/static'))
 app.mount('/templates', StaticFiles(directory='app/templates'))
 

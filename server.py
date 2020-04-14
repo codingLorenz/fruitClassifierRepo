@@ -87,36 +87,36 @@ def predict_image_from_bytes(bytes):
 
 @app.route("/")
 def form(request):
-    html_file = path / 'templates' / 'index.html'
-    return templates.TemplateResponse("index.html", {"request": request})
-    # return HTMLResponse(
-    #     """
-    #     <!DOCTYPE html>
-    #     <html lang="en">
-    #     <head>
-    #         <meta charset="utf-8">
-    #         <meta name="viewport" content="width=device-width, initial-scale=1">
-    #         <!-- Latest compiled and minified CSS -->
-    #         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    #         <!-- jQuery library -->
-    #         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    #         <!-- Popper JS -->
-    #         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    #         <!-- Latest compiled JavaScript -->
-    #         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    #         <title>Detect Eye Diseases</title>
-    #     </head>
-    #     <body>
-    #        <form action="/analyze" method="post" enctype="multipart/form-data">
-    #                         <div class="form-group">
-    #                             Select image to upload:
-    #                             <input type="file" name="file" class="input-sm">
-    #                             <input type="submit" value="Upload and Analyze Image" class="btn btn-primary">
-    #                         </div>
-    #                     </form>
-    #     </body>
-    #     </html>
-    # """)
+    # html_file = path / 'templates' / 'index.html'
+    # return templates.TemplateResponse("index.html", {"request": request})
+    return HTMLResponse(
+        """
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <!-- Latest compiled and minified CSS -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+            <!-- jQuery library -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <!-- Popper JS -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+            <!-- Latest compiled JavaScript -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+            <title>Detect Eye Diseases</title>
+        </head>
+        <body>
+           <form action="/analyze" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                Select image to upload:
+                                <input type="file" name="file" class="input-sm">
+                                <input type="submit" value="Upload and Analyze Image" class="btn btn-primary">
+                            </div>
+                        </form>
+        </body>
+        </html>
+    """)
 
 
 @app.route("/form")
